@@ -1,0 +1,111 @@
+[24bcs086@mepcolinux DAA]$cat ssort.h
+#ifndef SSORT_H
+#define SSORT_H
+
+void SelectionSort(int arr[], int n);
+void display(int arr[], int n);
+
+#endif
+
+[24bcs086@mepcolinux DAA]$cat ssortimp.cpp
+#include <iostream>
+#include "ssort.h"
+using namespace std;
+
+void display(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+void SelectionSort(int arr[], int n) {
+    int i, j, min, temp;
+
+    for (i = 0; i <= n - 2; i++) {
+        min = i;
+        for (j = i + 1; j <= n - 1; j++) {
+            if (arr[min] > arr[j]) {
+                min = j;
+            }
+        }
+
+        if (min != i) {
+            cout << "Swapping " << arr[i] << " and " << arr[min] << endl;
+            temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
+        } else {
+            cout << "No Swapping " << arr[i] << endl;
+        }
+        display(arr, n);
+    }
+}
+
+
+[24bcs086@mepcolinux DAA]$cat ssortapp.cpp
+#include <iostream>
+#include "ssort.h"
+using namespace std;
+
+int main() {
+    int i, n, arr[100];
+
+    cout << "Enter size: ";
+    cin >> n;
+
+    cout << "Enter elements: ";
+    for (i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    SelectionSort(arr, n);
+
+    cout << "After Sorting: ";
+    for (i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+
+    return 0;
+}
+
+[24bcs086@mepcolinux DAA]$c++ -c ssortapp.cpp ssortimp.cpp
+[24bcs086@mepcolinux DAA]$c++ ssortapp.cpp ssortimp.cpp -o out
+[24bcs086@mepcolinux DAA]$./out
+Enter size: 5
+Enter elements: 3 6 8 9 34 12 54 10
+No Swapping 3
+3 6 8 9 34
+No Swapping 6
+3 6 8 9 34
+No Swapping 8
+3 6 8 9 34
+No Swapping 9
+3 6 8 9 34
+
+[24bcs086@mepcolinux DAA]$c++ -c bsapp.cpp bsimp.cpp
+[24bcs086@mepcolinux DAA]$c++ bsapp.cpp bsimp.cpp -o out
+[24bcs086@mepcolinux DAA]$./out
+Enter size: 5
+Enter elements: 23 56 78 12 90
+No Swapping 23 and 56
+23 56 78 12 90
+No Swapping 56 and 78
+23 56 78 12 90
+Swapping 78 and 12
+23 56 12 78 90
+No Swapping 78 and 90
+23 56 12 78 90
+No Swapping 23 and 56
+23 56 12 78 90
+Swapping 56 and 12
+23 12 56 78 90
+No Swapping 56 and 78
+23 12 56 78 90
+Swapping 23 and 12
+12 23 56 78 90
+No Swapping 23 and 56
+12 23 56 78 90
+No Swapping 12 and 23
+12 23 56 78 90
+After Sorting: 12 23 56 78 90 
