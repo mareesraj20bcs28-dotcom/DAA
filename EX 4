@@ -1,0 +1,98 @@
+[24bcs086@mepcolinux DAA]$cat ex4
+#include <iostream>
+#include <algorithm> // For std::swap
+
+using namespace std; // Use standard namespace
+
+int heap[100];
+int size = 0;
+
+// Heapify upwards (for insertion)
+void heapifyUp(int index)
+{
+    int parent = (index - 1) / 2;
+
+    // Use std::swap from <algorithm>
+    if (index && heap[parent] > heap[index])
+    {
+        swap(heap[parent], heap[index]);
+        heapifyUp(parent);
+    }
+}
+
+// Insert into Min Heap
+void insert(int value)
+{
+    heap[size] = value;
+    heapifyUp(size);
+    size++;
+}
+
+// Heapify downwards (for deletion)
+void heapifyDown(int index)
+{
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+    int smallest = index;
+
+    if (left < size && heap[left] < heap[smallest])
+        smallest = left;
+
+    if (right < size && heap[right] < heap[smallest])
+        smallest = right;
+
+    if (smallest != index)
+    {
+        // Use std::swap from <algorithm>
+        swap(heap[index], heap[smallest]);
+        heapifyDown(smallest);
+    }
+}
+
+// Delete minimum element
+int deleteMin()
+{
+    int min = heap[0];
+    heap[0] = heap[size - 1];
+    size--;
+    heapifyDown(0);
+    return min;
+}
+
+int main()
+{
+    int n, i, value;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    cout << "Enter elements:\n";
+    for (i = 0; i < n; i++)
+    {
+        cin >> value;
+        insert(value);
+    }
+
+    cout << "Sorted elements in ascending order:\n";
+    for (i = 0; i < n; i++)
+    {
+        cout << deleteMin() << " ";
+    }
+    cout << endl; // Add a newline at the end
+
+    return 0;
+}
+
+[24bcs086@mepcolinux DAA]$c++ -c heap.cpp
+[24bcs086@mepcolinux DAA]$c++ heap.cpp -o out
+[24bcs086@mepcolinux DAA]$./out
+Enter number of elements: 6
+Enter elements:
+72
+23
+10
+7
+98
+30
+Sorted elements in ascending order:
+7 10 23 30 72 98
